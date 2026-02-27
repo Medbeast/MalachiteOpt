@@ -15,14 +15,24 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Make gradlew executable
-        run: chmod +x gradlew
+      - name: Unzip project
+        run: unzip MalachiteOptApp_v2_source.zip
+
+      - name: Install Gradle wrapper
+        run: |
+          cd MalachiteOptApp
+          wget -q https://services.gradle.org/distributions/gradle-8.4-bin.zip
+          unzip -q gradle-8.4-bin.zip
+          gradle-8.4/bin/gradle wrapper
+          chmod +x gradlew
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug
+        run: |
+          cd MalachiteOptApp
+          ./gradlew assembleDebug --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
           name: MalachiteOpt-v2.apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: MalachiteOptApp/app/build/output
