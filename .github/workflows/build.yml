@@ -16,10 +16,9 @@ jobs:
         run: unzip MalachiteOptApp_v2_source.zip
 
       - name: Move into project
-        run: |
-          mv MalachiteOptApp_v2_source/* .
-          rm -rf MalachiteOptApp_v2_source
-
+  run: |
+    mv MalachiteOptApp/* .
+    rm -rf MalachiteOptApp
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
